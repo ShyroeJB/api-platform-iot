@@ -8,7 +8,7 @@ var xbeeAPI = new xbee_api.XBeeAPI({
 });
 
 
-let serialport = new SerialPort("/dev/ttyUSB1", {
+let serialport = new SerialPort("COM3", {
   baudRate: 9600,
 }, function (err) {
   if (err) {
