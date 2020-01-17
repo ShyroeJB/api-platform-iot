@@ -64,7 +64,46 @@ xbeeAPI.parser.on("data", function (frame) {
 
   } else if (C.FRAME_TYPE.ZIGBEE_IO_DATA_SAMPLE_RX === frame.type) {
     console.log(frame);
+    let date_ob = new Date();
 
+    // current date
+    // adjust 0 before single digit date
+    let date = ("0" + date_ob.getDate()).slice(-2);
+
+    // current month
+    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+
+    // current year
+    let year = date_ob.getFullYear();
+
+    // current hours
+    let hours = date_ob.getHours();
+
+    // current minutes
+    let minutes = date_ob.getMinutes();
+
+    // current seconds
+    let seconds = date_ob.getSeconds();
+
+    let datetime =
+      year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
+
+    const axios = require("axios");
+
+    axios
+      .post("https://localhost:8443/bowls", {
+        animalName: "Jepherson",
+        waterLevel: frame.analogSamples.AD0,
+        dTime: datetime,
+        fountainIsOpen: false
+      })
+      .then(res => {
+        console.log(`statusCode: ${res.statusCode}`);
+        console.log(res);
+      })
+      .catch(error => {
+        console.error(error);
+      });
 
   } else if (C.FRAME_TYPE.REMOTE_COMMAND_RESPONSE === frame.type) {
 
