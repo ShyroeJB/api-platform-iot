@@ -39,7 +39,7 @@ class Show extends Component {
 
     return (
       <div>
-        <h1>Show {item && item['@id']}</h1>
+        <h1>tetet {item && item['@id']}</h1>
 
         {this.props.loading && (
           <div className="alert alert-info" role="status">
