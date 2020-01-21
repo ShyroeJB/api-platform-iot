@@ -89,14 +89,23 @@ xbeeAPI.parser.on("data", function (frame) {
       year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
 
     const axios = require("axios");
+    const https = require("https");
+
+    const agent = new https.Agent({
+      rejectUnauthorized: false
+    });
 
     axios
-      .post("https://localhost:8443/bowls", {
-        animalName: "Jepherson",
-        waterLevel: frame.analogSamples.AD0,
-        dTime: datetime,
-        fountainIsOpen: false
-      })
+      .post(
+        "https://localhost:8443/bowls",
+        {
+          animalName: "Jepherson",
+          waterLevel: frame.analogSamples.AD0,
+          dTime: datetime,
+          fountainIsOpen: false
+        },
+        { httpsAgent: agent }
+      )
       .then(res => {
         console.log(`statusCode: ${res.statusCode}`);
         console.log(res);
