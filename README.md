@@ -10,7 +10,7 @@ On utilise API Plateform comme base du projet.
     - [XBEE](#xbee)
     - [Docker](#docker)
     - [Database](#database)
-    - [Socket Node.Js](#socket-node.js)
+    - [Socket Node.Js](#socket-nodejs)
     - [Generation Client](#generation-client)
 
 ## Installation de l'environnement de travail
