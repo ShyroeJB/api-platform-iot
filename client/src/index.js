@@ -36,7 +36,7 @@ ReactDOM.render(
       <Switch>
         <Route path="/" component={Welcome} strict={true} exact={true}/>
         { bowlRoutes }
-        <Route render={() => <h1>Not Found</h1>} />
+        <Route render={() => <h1>Erreur, route incorrecte</h1>} />
       </Switch>
     </ConnectedRouter>
   </Provider>,

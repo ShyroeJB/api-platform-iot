@@ -37,14 +37,14 @@ class List extends Component {
   render() {
     return (
       <div>
-        <h1>Bowl List</h1>
+        <h1>Liste des gamelles</h1>
 
         {this.props.loading && (
-          <div className="alert alert-info">Loading...</div>
+          <div className="alert alert-info">Chargement en cours...</div>
         )}
         {this.props.deletedItem && (
           <div className="alert alert-success">
-            {this.props.deletedItem['@id']} deleted.
+            {this.props.deletedItem['@id']} supprimée.
           </div>
         )}
         {this.props.error && (
@@ -53,7 +53,7 @@ class List extends Component {
 
         <p>
           <Link to="create" className="btn btn-primary">
-            Create
+            Créer
           </Link>
         </p>
 
@@ -61,10 +61,10 @@ class List extends Component {
           <thead>
             <tr>
               <th>id</th>
-              <th>animalName</th>
-              <th>waterLevel</th>
-              <th>dTime</th>
-              <th>fountainIsOpen</th>
+              <th>Nom de l'animal</th>
+              <th>Niveau de l'eau</th>
+              <th>Relevé</th>
+              <th>Ouverture de Fontaine</th>
               <th colSpan={2} />
             </tr>
           </thead>
@@ -72,11 +72,7 @@ class List extends Component {
             {this.props.retrieved &&
               this.props.retrieved['hydra:member'].map(item => (
                 <tr key={item['@id']}>
-                  <th scope="row">
-                    <Link to={`show/${encodeURIComponent(item['@id'])}`}>
-                      {item['@id']}
-                    </Link>
-                  </th>
+                  <td>{item['@id']}</td>
                   <td>{item['animalName']}</td>
                   <td>{item['waterLevel']}</td>
                   <td>{item['dTime']}</td>

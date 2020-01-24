@@ -39,11 +39,11 @@ class Show extends Component {
 
     return (
       <div>
-        <h1>tetet {item && item['@id']}</h1>
+        <h1>Gamelle {item && item['@id']}</h1>
 
         {this.props.loading && (
           <div className="alert alert-info" role="status">
-            Loading...
+            Chargement en cours...
           </div>
         )}
         {this.props.error && (
@@ -63,32 +63,32 @@ class Show extends Component {
           <table className="table table-responsive table-striped table-hover">
             <thead>
               <tr>
-                <th>Field</th>
-                <th>Value</th>
+                <th>Champs</th>
+                <th>Valeur</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <th scope="row">animalName</th>
+                <th scope="row">Nom de l'animal</th>
                 <td>{item['animalName']}</td>
               </tr>
               <tr>
-                <th scope="row">waterLevel</th>
+                <th scope="row">Niveau d'eau</th>
                 <td>{item['waterLevel']}</td>
               </tr>
               <tr>
-                <th scope="row">dTime</th>
+                <th scope="row">Relevé</th>
                 <td>{item['dTime']}</td>
               </tr>
               <tr>
-                <th scope="row">fountainIsOpen</th>
+                <th scope="row">Ouverture de la Fontaine</th>
                 <td>{item['fountainIsOpen']}</td>
               </tr>
             </tbody>
           </table>
         )}
         <Link to=".." className="btn btn-primary">
-          Back to list
+          Retour à la liste
         </Link>
         {item && (
           <Link to={`/bowls/edit/${encodeURIComponent(item['@id'])}`}>
@@ -96,7 +96,7 @@ class Show extends Component {
           </Link>
         )}
         <button onClick={this.del} className="btn btn-danger">
-          Delete
+          Suprrimer
         </button>
       </div>
     );

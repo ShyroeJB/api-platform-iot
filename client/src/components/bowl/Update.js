@@ -44,23 +44,23 @@ class Update extends Component {
 
     return (
       <div>
-        <h1>Edit {item && item['@id']}</h1>
+        <h1>Edition {item && item['@id']}</h1>
 
         {this.props.created && (
           <div className="alert alert-success" role="status">
-            {this.props.created['@id']} created.
+            {this.props.created['@id']} créée.
           </div>
         )}
         {this.props.updated && (
           <div className="alert alert-success" role="status">
-            {this.props.updated['@id']} updated.
+            {this.props.updated['@id']} mise à jour.
           </div>
         )}
         {(this.props.retrieveLoading ||
           this.props.updateLoading ||
           this.props.deleteLoading) && (
           <div className="alert alert-info" role="status">
-            Loading...
+            Chargement...
           </div>
         )}
         {this.props.retrieveError && (

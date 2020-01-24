@@ -72,7 +72,7 @@ class Form extends Component {
         />
 
         <button type="submit" className="btn btn-success">
-          Submit
+          Envoyer
         </button>
       </form>
     );

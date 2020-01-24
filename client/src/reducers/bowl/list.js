@@ -6,7 +6,7 @@ export function error(state = null, action) {
       return action.error;
 
     case 'BOWL_LIST_MERCURE_DELETED':
-      return `${action.retrieved['@id']} has been deleted by another user.`;
+      return `${action.retrieved['@id']} a été supprimé par un autre utilisateur.`;
 
     case 'BOWL_LIST_RESET':
       return null;
