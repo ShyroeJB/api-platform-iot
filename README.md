@@ -9,6 +9,9 @@ On utilise API Plateform comme base du projet.
   - [Configuration](#configuration)
     - [XBEE](#xbee)
     - [Docker](#docker)
+    - [Database](#database)
+    - [Socket Node.Js](#socket-node.js)
+    - [Generation Client](#generation-client)
 
 ## Installation de l'environnement de travail
 
@@ -38,3 +41,59 @@ PROBLEMES :
 ### Docker
 
 Lors du lancement de Docker, il faut entrer dans les parametres du logiciel et partager les dossiers C : et D : pour l’authentification : entrer le login et le mdp de la session du PC
+
+Lancement des containers :  
+
+``` docker
+docker-compose build
+docker-compose up
+```
+
+### Database
+
+Dans le fichier docker-compose.yml verifié la ligne de volume de la database.
+
+Changement d'un volume Linux en volume Windows :
+Pas de permissions sur des fichiers dans le volume créé, changer le volume en décommentant  
+
+``` docker-compose.yml
+db-data:/var/lib/postgresql/data:rw
+```
+
+et en commentant
+
+``` docker-compose.yml
+dsq./api/docker/db/data:/var/lib/postgresql/data:rw 
+```
+
+Pour generer les tables depuis le code php il faut se connecter au container php et executer les commandes :  
+
+``` terminal
+docker-compose exec php sh
+bin/console make :entity
+bin/console doctrine :schema :update --force
+```
+
+bin/console make :entity : créer des models en php
+
+### Socket Node.JS
+
+Attention le port COM ne doit pas être utilisé pour pouvoir lancer le socket.  
+Il faut se deplacer dans le dossier socket et lancer les commande suivantes (le socket ne fonctionne pas dans les containers)
+
+``` terminal
+cd .\socket\
+npm install
+npm start
+```
+
+### Generation Client
+
+Le client peut etre generer et de divers type, ici nous avons pris un client React.  
+Le client a deja été genere et se trouve dnas le dossier Client.  
+
+```terminal
+docker-compose exec client generate-api-platform-client
+```
+
+Dasn le container pour voir les modif il faut redemarrer a chaque fois le container client ou le lancer en local pour pouvoir profiter du hot reload.  
