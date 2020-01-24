@@ -15,6 +15,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
 import * as serviceWorker from './serviceWorker';
 // Import your reducers and routes here
+import bowl from './reducers/bowl/';
+import bowlRoutes from './routes/bowl';
 import Welcome from './Welcome';
 
 const history = createBrowserHistory();
@@ -22,6 +24,7 @@ const store = createStore(
   combineReducers({
     router: connectRouter(history),
     form,
+    bowl
     /* Add your reducers here */
   }),
   applyMiddleware(routerMiddleware(history), thunk)
@@ -32,8 +35,8 @@ ReactDOM.render(
     <ConnectedRouter history={history}>
       <Switch>
         <Route path="/" component={Welcome} strict={true} exact={true}/>
-        {/* Add your routes here */}
-        <Route render={() => <h1>Not Found</h1>} />
+        { bowlRoutes }
+        <Route render={() => <h1>Erreur, route incorrecte</h1>} />
       </Switch>
     </ConnectedRouter>
   </Provider>,
