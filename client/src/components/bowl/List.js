@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { list, reset } from '../../actions/bowl/list';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { list, reset } from "../../actions/bowl/list";
 
 class List extends Component {
   static propTypes = {
@@ -35,6 +35,13 @@ class List extends Component {
   }
 
   render() {
+    // const isEmptyBowls = this.props.retrieved.slice(-1)[0].waterLevel;
+    // let waterLevelBowls;
+    // if (isEmptyBowls < 200) {
+    //   waterLevelBowls = <div className="alert alert-danger"> Vide </div>;
+    // } else {
+    //   waterLevelBowls = <div className="alert alert-success"> Pas vide </div>;
+    // }
     return (
       <div>
         <h1>Liste des gamelles</h1>
@@ -44,13 +51,12 @@ class List extends Component {
         )}
         {this.props.deletedItem && (
           <div className="alert alert-success">
-            {this.props.deletedItem['@id']} supprimée.
+            {this.props.deletedItem["@id"]} supprimée.
           </div>
         )}
         {this.props.error && (
           <div className="alert alert-danger">{this.props.error}</div>
         )}
-
         <p>
           <Link to="create" className="btn btn-primary">
             Créer
@@ -70,21 +76,28 @@ class List extends Component {
           </thead>
           <tbody>
             {this.props.retrieved &&
-              this.props.retrieved['hydra:member'].map(item => (
-                <tr key={item['@id']}>
-                  <td>{item['@id']}</td>
-                  <td>{item['animalName']}</td>
-                  <td>{item['waterLevel']}</td>
-                  <td>{item['dTime']}</td>
-                  <td>{item['fountainIsOpen']}</td>
+              this.props.retrieved["hydra:member"].map(item => (
+                <tr key={item["@id"]}>
+                  <td>{item["@id"]}</td>
+                  <td>{item["animalName"]}</td>
                   <td>
-                    <Link to={`show/${encodeURIComponent(item['@id'])}`}>
+                    {item["waterLevel"] < 200 && (
+                      <div className="alert alert-danger"> Presque Vide </div>
+                    )}
+                    {item["waterLevel"] > 200 && (
+                      <div className="alert alert-success"> Pas Vide </div>
+                    )}
+                  </td>
+                  <td>{item["dTime"]}</td>
+                  <td>{item["fountainIsOpen"]}</td>
+                  <td>
+                    <Link to={`show/${encodeURIComponent(item["@id"])}`}>
                       <span className="fa fa-search" aria-hidden="true" />
                       <span className="sr-only">Show</span>
                     </Link>
                   </td>
                   <td>
-                    <Link to={`edit/${encodeURIComponent(item['@id'])}`}>
+                    <Link to={`edit/${encodeURIComponent(item["@id"])}`}>
                       <span className="fa fa-pencil" aria-hidden="true" />
                       <span className="sr-only">Edit</span>
                     </Link>
@@ -100,41 +113,41 @@ class List extends Component {
   }
 
   pagination() {
-    const view = this.props.retrieved && this.props.retrieved['hydra:view'];
+    const view = this.props.retrieved && this.props.retrieved["hydra:view"];
     if (!view) return;
 
     const {
-      'hydra:first': first,
-      'hydra:previous': previous,
-      'hydra:next': next,
-      'hydra:last': last
+      "hydra:first": first,
+      "hydra:previous": previous,
+      "hydra:next": next,
+      "hydra:last": last
     } = view;
 
     return (
       <nav aria-label="Page navigation">
         <Link
           to="."
-          className={`btn btn-primary${previous ? '' : ' disabled'}`}
+          className={`btn btn-primary${previous ? "" : " disabled"}`}
         >
           <span aria-hidden="true">&lArr;</span> First
         </Link>
         <Link
           to={
-            !previous || previous === first ? '.' : encodeURIComponent(previous)
+            !previous || previous === first ? "." : encodeURIComponent(previous)
           }
-          className={`btn btn-primary${previous ? '' : ' disabled'}`}
+          className={`btn btn-primary${previous ? "" : " disabled"}`}
         >
           <span aria-hidden="true">&larr;</span> Previous
         </Link>
         <Link
-          to={next ? encodeURIComponent(next) : '#'}
-          className={`btn btn-primary${next ? '' : ' disabled'}`}
+          to={next ? encodeURIComponent(next) : "#"}
+          className={`btn btn-primary${next ? "" : " disabled"}`}
         >
           Next <span aria-hidden="true">&rarr;</span>
         </Link>
         <Link
-          to={last ? encodeURIComponent(last) : '#'}
-          className={`btn btn-primary${next ? '' : ' disabled'}`}
+          to={last ? encodeURIComponent(last) : "#"}
+          className={`btn btn-primary${next ? "" : " disabled"}`}
         >
           Last <span aria-hidden="true">&rArr;</span>
         </Link>
