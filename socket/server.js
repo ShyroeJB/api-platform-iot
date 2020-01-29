@@ -96,8 +96,8 @@ xbeeAPI.parser.on("data", function (frame) {
     });
 
     axios
-      .post(
-        "https://localhost:8443/bowls",
+      .put(
+        "https://localhost:8443/bowls/2",
         {
           animalName: "Jepherson",
           waterLevel: frame.analogSamples.AD0,
